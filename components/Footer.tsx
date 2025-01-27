@@ -1,4 +1,5 @@
-import type React from "react"
+import type React from "react";
+import Image from "next/image";
 
 export const Footer: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ export const Footer: React.FC = () => {
             rel="noopener noreferrer"
             className="flex items-center gap-2 ml-2 mr-4 mb-4 sm:mb-2"
           >
-            <img src="/linkedin.svg" alt="LinkedIn" className="w-6 h-6" />
+            <Image src="/linkedin.svg" alt="LinkedIn" width="48" height="48" />
           </a>
           <div className="flex space-x-4">
             <a href="#" className="hover:text-gray-300">
@@ -32,6 +33,5 @@ export const Footer: React.FC = () => {
         </div>
       </div>
     </footer>
-  )
-}
-
+  );
+};

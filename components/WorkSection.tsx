@@ -1,7 +1,8 @@
-import type React from "react"
-import { useState } from "react"
-import type { Work } from "@/types"
-import { WorkModal } from "./WorkModal"
+import type React from "react";
+import { useState } from "react";
+import type { Work } from "../types";
+import { WorkModal } from "./WorkModal";
+import Image from "next/image";
 
 const workData: Work[] = [
   {
@@ -9,6 +10,7 @@ const workData: Work[] = [
     title: "Project 1",
     description: "Description for Project 1",
     image: "/project1.jpg",
+    tags: ["React", "JavaScript"],
   },
   {
     id: 2,
@@ -17,26 +19,30 @@ const workData: Work[] = [
     image: "/project2.jpg",
   },
   // Add more projects as needed
-]
+] as Work[];
 
 export const WorkSection: React.FC = () => {
-  const [selectedWork, setSelectedWork] = useState<number | null>(null)
+  const [selectedWork, setSelectedWork] = useState<number | null>(null);
 
   const handleWorkClick = (id: number) => {
-    setSelectedWork(id)
-  }
+    setSelectedWork(id);
+  };
 
   const handleCloseModal = () => {
-    setSelectedWork(null)
-  }
+    setSelectedWork(null);
+  };
 
   const handleNextWork = () => {
-    setSelectedWork((prev) => (prev !== null ? (prev + 1) % workData.length : null))
-  }
+    setSelectedWork((prev) =>
+      prev !== null ? (prev + 1) % workData.length : null
+    );
+  };
 
   const handlePrevWork = () => {
-    setSelectedWork((prev) => (prev !== null ? (prev - 1 + workData.length) % workData.length : null))
-  }
+    setSelectedWork((prev) =>
+      prev !== null ? (prev - 1 + workData.length) % workData.length : null
+    );
+  };
 
   return (
     <section id="work" className="py-16 bg-gray-50">
@@ -49,7 +55,11 @@ export const WorkSection: React.FC = () => {
               className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"
               onClick={() => handleWorkClick(work.id)}
             >
-              <img src={work.image || "/placeholder.svg"} alt={work.title} className="w-full h-48 object-cover" />
+              <Image
+                src={work.image || "/placeholder.svg"}
+                alt={work.title}
+                className="w-full h-48 object-cover"
+              />
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2">{work.title}</h3>
                 <p className="text-gray-600">{work.description}</p>
@@ -58,15 +68,14 @@ export const WorkSection: React.FC = () => {
           ))}
         </div>
       </div>
-      {selectedWork !== null && (
+      {selectedWork && (
         <WorkModal
-          work={workData[selectedWork]}
+          work={workData.find((work) => work.id === selectedWork)!}
           onClose={handleCloseModal}
           onNext={handleNextWork}
           onPrev={handlePrevWork}
         />
       )}
     </section>
-  )
-}
-
+  );
+};

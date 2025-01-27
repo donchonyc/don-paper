@@ -1,19 +1,23 @@
-"use client"
-import { useState } from "react"
-import { WorkModal } from "./WorkModal"
+"use client";
+import { useState } from "react";
+import { WorkModal } from "./WorkModal";
 
 interface Work {
-  id: number
-  title: string
-  tags: string[]
-  description: string
-  fullDescription: string
-  image: string
-  techStack: string[]
+  id: number;
+  title: string;
+  tags: string[];
+  description: string;
+  fullDescription: string;
+  image: string;
+  techStack: string[];
 }
 
-const WorkPlace: React.FC = () => {
-  const types: string[] = ["Work", "Playground"]
+interface WorkPlaceProps {
+  id?: string;
+}
+
+const WorkPlace: React.FC<WorkPlaceProps> = ({ id }) => {
+  const types: string[] = ["Work", "Playground"];
   const works: Work[] = [
     {
       id: 1,
@@ -51,47 +55,50 @@ const WorkPlace: React.FC = () => {
       image: "/next.svg",
       techStack: ["figma", "react", "nextjs", "tailwindcss"],
     },
-  ]
+  ];
 
-  const [selectedWork, setSelectedWork] = useState<number | null>(null)
+  const [selectedWork, setSelectedWork] = useState<number | null>(null);
 
   const handleWorkClick = (id: number) => {
-    setSelectedWork(id)
-  }
+    setSelectedWork(id);
+  };
 
   const handleCloseModal = () => {
-    setSelectedWork(null)
-  }
+    setSelectedWork(null);
+  };
 
   const handleNextWork = () => {
-    const currentIndex = works.findIndex((work) => work.id === selectedWork)
+    const currentIndex = works.findIndex((work) => work.id === selectedWork);
 
     if (currentIndex === -1) {
-      return null
+      return null;
     }
 
-    const nextIndex = (currentIndex + 1) % works.length
+    const nextIndex = (currentIndex + 1) % works.length;
 
-    setSelectedWork(works[nextIndex].id)
-  }
+    setSelectedWork(works[nextIndex].id);
+  };
 
   const handlePrevWork = () => {
-    const currentIndex = works.findIndex((work) => work.id === selectedWork)
+    const currentIndex = works.findIndex((work) => work.id === selectedWork);
 
     if (currentIndex === -1) {
-      return null
+      return null;
     }
 
-    const prevIndex = (currentIndex - 1 + works.length) % works.length
+    const prevIndex = (currentIndex - 1 + works.length) % works.length;
 
-    setSelectedWork(works[prevIndex].id)
-  }
+    setSelectedWork(works[prevIndex].id);
+  };
 
   return (
-    <section id="work" className="px-4 py-96 sm:px-6 lg:px-8">
+    <section id={id} className="px-4 py-96 sm:px-6 lg:px-8">
       <h2 className="text-3xl font-bold mb-12 grid grid-cols-2 gap-1">
         {types.map((type, index) => (
-          <button key={index} className="hover:text-cloud transition-colors text-left">
+          <button
+            key={index}
+            className="hover:text-cloud transition-colors text-left"
+          >
             {type}
           </button>
         ))}
@@ -126,8 +133,7 @@ const WorkPlace: React.FC = () => {
         />
       )}
     </section>
-  )
-}
+  );
+};
 
-export default WorkPlace
-
+export default WorkPlace;
