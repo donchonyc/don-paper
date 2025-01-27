@@ -92,8 +92,8 @@ export const HeroSection: React.FC = () => {
           <Image
             src="/profile-image.jpg"
             alt="Yun Dong Cho"
-            layout="fill"
-            objectFit="cover"
+            width="256"
+            height="256"
             className={`rounded-full transition-transform duration-300 ${
               isHovered ? "scale-110" : "scale-100"
             }`}
